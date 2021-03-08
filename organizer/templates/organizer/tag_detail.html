@@ -1,0 +1,47 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}
+{{ block.super }} - {{ tag.name|title }}
+{% endblock %}
+
+{% block content %}
+<h2>{{ tag.name|title }}</h2>
+    {% if tag.team_set.all %}
+    <ul>
+        <li>
+            <a href="{{ tag.get_update_url }}">Edit Tag</a>
+        </li>
+        <li>
+            <a href="{{ tag.get_delete_url }}">Delete Tag</a>
+        </li>
+    </ul>
+    <section>
+        <h3>Teams{{tag.team_set.count|pluralize }}</h3>
+        <p>
+            Tag is associated with
+            {{ tag.team_set.count }}
+            team{{ tag.startup_set.count|pluralize }}
+        </p>
+        <ul>
+            {% for team in tag.team_set.all %}
+                <li><a href="{{ startup.get_absolute_url }}">
+                    {{ team.name }}
+                </a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+        {% if tag.blog_posts.all %}
+        <section>
+            <h3>Blog Posts {{ tag.blog_posts.count|pluralize }}</h3>
+            <ul>
+                {% for post in tag.blog_posts.all %}
+                <li><a href="{{ post.get_absolute_url }}">{{ blog.title|title }}</a></li>
+            {% endfor %}
+            </ul>
+        </section>
+        {% end if %}
+        {% if not tag.startup_set.all and not tag.blog_posts.all %}
+            <p>This tag is not related to any content.</p>
+        {% endif %}
+ {% endblock %}

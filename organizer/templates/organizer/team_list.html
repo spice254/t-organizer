@@ -1,0 +1,31 @@
+{% extends parent_template|default:"organizer/base_organizer.html" %}
+
+{% block title %}
+{{ block.super }} - Teams
+{% endblock %}
+
+{% block content %}
+  <h2>Team List</h2>
+    <div>
+      <a href="{% url 'organizer_team_create' %}">
+        Create New Team</a>
+    </div>
+  <ul>
+    {% for team in team_list %}
+      <li>
+        <a href="{{ team.get_absolute_url }}">
+          {{ team.name }}</a>
+          <ul>
+            <li>
+                <a href="{{ team.get_update_url }}">
+                  Edit Team</a></li>
+            <li>
+              <a href="{{ team.get_delete_url }}">
+                Delete Tag</a></li>
+          </ul>
+      </li>
+    {% empty %}
+      <li><em>No Teams Available</em></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
