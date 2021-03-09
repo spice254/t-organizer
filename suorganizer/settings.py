@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'organizer',
     'blog',
     'django_extensions',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,16 @@ DATABASES = {
     }
 }
 
+# Email
+# https://docs.djangoproject.com/en/1.8/topics/email/
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SERVER_EMAIL = 'contact@spice.com'
+DEFAULT_FROM_EMAIL = 'no-reply@spice.com'
+EMAIL_SUBJECT_PREFIX = '[Team Organizer] '
+MANAGERS = (
+    ('Us', 'ourselves@spice.com'),
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
